@@ -48,7 +48,7 @@ public class CharacterCreator
 		addWeapon(chad, brzDagger, enchBltSwrd, brzSwrd, bnDag, irLngSwrd, irDag, irFl, bltIrSwrd, enchStlBrdSwrd, stlLnc);
 		addWeapon(chad, brzDagger, enchBltSwrd, brzSwrd, bnDag, irLngSwrd, irDag, irFl, bltIrSwrd, enchStlBrdSwrd, stlLnc);
 		System.out.println ( chad.playerInventory );
-		equipWeapon(input, chad, brzDagger, enchBltSwrd, brzSwrd, bnDag, irLngSwrd, irDag, irFl, bltIrSwrd, enchStlBrdSwrd, stlLnc);
+		equipWeapon(input, chad, brzDagger, enchBltSwrd, brzSwrd, bnDag, irLngSwrd, irDag, irFl, bltIrSwrd, enchStlBrdSwrd, stlLnc, hPot);
 		chad.toString ( );
 		System.out.println ( "Program End" );
 		
@@ -65,29 +65,29 @@ public class CharacterCreator
 		System.out.println ( "Choose your characters class, *Type character class*" );
 		System.out.println ( "1. Knight 2. Mage 3. Thief" );
 		chad.classType= input.next ();
-		if(chad.classType.equalsIgnoreCase ( "Knight" ) || chad.classType.equalsIgnoreCase ( "Mage" ) || chad.classType.equalsIgnoreCase ("Thief") ) 
+		if(chad.classType.equalsIgnoreCase ( "knight" ) || chad.classType.equalsIgnoreCase ( "mage" ) || chad.classType.equalsIgnoreCase ("thief") ) 
 		{
 		
-			if (chad.classType.equalsIgnoreCase( "Knight" ))
+			if (chad.classType.equalsIgnoreCase( "knight" ))
 			{
-				chad.setStrength (6);
+				chad.strength = 6;
 				chad.setVitality (6);
 				chad.setDexterity(4);
 				chad.setWisdom   (2);
 				
 			}
-			else if (chad.classType.contentEquals ( "Mage" ))
+			else if (chad.classType.contentEquals ( "mage" ))
 			{
 				
-				chad.setStrength (3);
+				chad.strength = 3;
 				chad.setVitality (3);
 				chad.setDexterity(5);
 				chad.setWisdom   (6);
 			}
-			else if (chad.classType.contentEquals ( "Thief" ))
+			else if (chad.classType.contentEquals ( "thief" ))
 			{
 				
-				chad.setStrength (4);
+				chad.strength = 4;
 				chad.setVitality (5);
 				chad.setDexterity(6);
 				chad.setWisdom   (3);
@@ -186,7 +186,7 @@ public class CharacterCreator
 		chad.playerInventory.add (0, hPot);
 	}
 	
-	public static void equipWeapon(Scanner input, Characters chad, Weapon brzDagger, Weapon enchBltSwrd, Weapon brzSwrd, Weapon bnDag, Weapon irLngSwrd, Weapon irDag, Weapon irFl, Weapon bltIrSwrd, Weapon enchStlBrdSwrd, Weapon stlLnc) {
+	public static void equipWeapon(Scanner input, Characters chad, Weapon brzDagger, Weapon enchBltSwrd, Weapon brzSwrd, Weapon bnDag, Weapon irLngSwrd, Weapon irDag, Weapon irFl, Weapon bltIrSwrd, Weapon enchStlBrdSwrd, Weapon stlLnc, Potion hPot) {
 		if(chad.getWeaponName ( )==null) {
 			System.out.println ( "No current Weapon" );
 		}
@@ -201,12 +201,24 @@ public class CharacterCreator
 				int c = i+1;
 				System.out.print (c+": "+chad.playerInventory.get ( i )+"  "  );
 			}
-			System.out.println ( "Enter the number of the Weapon you wish to equip" );
+			System.out.println ( "\n Enter the number of the Weapon you wish to equip" );
 			int weaponChoice = input.nextInt ( );
-			
-			chad.setWeaponName ((String) chad.playerInventory.get(weaponChoice-1));
-			chad.toString ( );
-	
+			if(chad.playerInventory.contains ( hPot  )) {
+				chad.setWeaponName ( chad.playerWeapsName.get ( weaponChoice-2 ) );
+				chad.setWeaponDamage ( chad.playerWeapsDmg.get ( weaponChoice-2 ) );
+				chad.playerInventory.remove ( weaponChoice-1 );
+				chad.playerWeapsName.remove ( weaponChoice -2 );
+				chad.playerWeapsDmg.remove ( weaponChoice -2 );	
+			}
+			else {
+				chad.setWeaponName ( chad.playerWeapsName.get ( weaponChoice-1 ) );
+				chad.setWeaponDamage ( chad.playerWeapsDmg.get ( weaponChoice-1 ) );
+				chad.playerInventory.remove ( weaponChoice-1 );
+				chad.playerWeapsName.remove ( weaponChoice -1 );
+				chad.playerWeapsDmg.remove ( weaponChoice -1 );
+			}
+			System.out.println ( "You equipped "+chad.getWeaponName ( )+" its attack is: "+chad.getWeaponDamage ( ) );
+			System.out.println ( chad.getPlayerInventory ( ) );
 		}
 	}
 	
@@ -215,33 +227,53 @@ public class CharacterCreator
 		switch(randWeap) {
 			case 1:
 				chad.playerInventory.add ( brzDagger );
+				chad.playerWeapsName.add ( brzDagger.name );
+				chad.playerWeapsDmg.add ( brzDagger.damage );
 				break;
 			case 2:
 				chad.playerInventory.add ( enchBltSwrd );
+				chad.playerWeapsName.add ( enchBltSwrd.name );
+				chad.playerWeapsDmg.add ( enchBltSwrd.damage );
 				break;
 			case 3:
 				chad.playerInventory.add ( brzSwrd );
+				chad.playerWeapsName.add ( brzSwrd.name );
+				chad.playerWeapsDmg.add ( brzSwrd.damage );
 				break;
 			case 4:
 				chad.playerInventory.add ( bnDag );
+				chad.playerWeapsName.add ( bnDag.name );
+				chad.playerWeapsDmg.add ( bnDag.damage );
 				break;
 			case 5:
 				chad.playerInventory.add ( irLngSwrd );
+				chad.playerWeapsName.add ( irLngSwrd.name );
+				chad.playerWeapsDmg.add ( irLngSwrd.damage );
 				break;
 			case 6:
 				chad.playerInventory.add ( irDag );
+				chad.playerWeapsName.add ( irDag.name );
+				chad.playerWeapsDmg.add ( irDag.damage );
 				break;
 			case 7:
 				chad.playerInventory.add ( irFl );
+				chad.playerWeapsName.add ( irFl.name );
+				chad.playerWeapsDmg.add ( irFl.damage );
 				break;
 			case 8:
 				chad.playerInventory.add ( bltIrSwrd );
+				chad.playerWeapsName.add ( bltIrSwrd.name );
+				chad.playerWeapsDmg.add ( bltIrSwrd.damage );
 				break;
 			case 9:
 				chad.playerInventory.add ( enchStlBrdSwrd );
+				chad.playerWeapsName.add ( enchStlBrdSwrd.name );
+				chad.playerWeapsDmg.add ( enchStlBrdSwrd.damage );
 				break;
 			case 10:
 				chad.playerInventory.add ( stlLnc );
+				chad.playerWeapsName.add ( stlLnc.name );
+				chad.playerWeapsDmg.add ( stlLnc.damage );
 				break;
 				
 		

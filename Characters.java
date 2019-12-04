@@ -14,6 +14,9 @@ public class Characters
 	int wisdom;
 	int dmg;
 	LinkedList<Object> playerInventory = new LinkedList<Object>();
+	LinkedList<String> playerWeapsName = new LinkedList<String>();
+	LinkedList<Integer> playerWeapsDmg = new LinkedList<Integer>(); 
+	
 	
 	
 	
